@@ -25,6 +25,7 @@ const App = () => {
   return (
     <div className="App">
       <TopNavigationBar />
+      <HomeRoute />
       <HomeRoute photoData={photoData} topicData={topicData}  openModal={openModal} isFavorited={isFavorited} toggleFavourite={toggleFavourite} />
       {isModalOpen && (
         <PhotoDetailsModal
