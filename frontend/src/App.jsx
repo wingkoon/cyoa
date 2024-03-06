@@ -5,6 +5,32 @@ import PhotoList from './components/PhotoList';
 import TopNavigationBar from './components/TopNavigationBar';
 import './App.scss';
 
+function Application(props) {
+  const firstname = useControlledInput("");
+  const lastname = useControlledInput("");
+  const email = useControlledInput("");
+  const password = useControlledInput("");
+  const passwordConfirmation = useControlledInput("");
+
+  return (
+    <form>
+      <input {...firstname} />
+      <input {...lastname} />
+      <input {...email} />
+      <input {...password} type="password" />
+      <input {...passwordConfirmation} type="password" />
+    </form>
+  );
+}
+
+function useControlledInput(initial) {
+  const [value, setValue] = useState(initial);
+
+  return {
+    value,
+    onChange: (event) => setValue(event.target.value)
+  };
+}
 
 // Note: Rendering a single component to build components in isolation
 const App = () => {
@@ -21,11 +47,21 @@ const App = () => {
     photoData,
     topicData,
   } = useApplicationData();
+  /*const {
+    state,
+    onPhotoSelect,
+    updateToFavPhotoIds,
+    onLoadTopic,
+    onClosePhotoDetailsModal,
+  }*/
 
   return (
     <div className="App">
       <TopNavigationBar />
-      <HomeRoute />
+      <PhotoFavButton
+  toggleFavourite={toggleFavourite}
+  photoId={photo.id}
+/>
       <HomeRoute photoData={photoData} topicData={topicData}  openModal={openModal} isFavorited={isFavorited} toggleFavourite={toggleFavourite} />
       {isModalOpen && (
         <PhotoDetailsModal
@@ -43,4 +79,3 @@ const App = () => {
 
 
 export default App;
-
