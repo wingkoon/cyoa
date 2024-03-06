@@ -2,6 +2,7 @@ import React from 'react';
 
 //import PhotoListItem from './components/PhotoListItem';
 import PhotoList from './components/PhotoList';
+import TopNavigationBar from './components/TopNavigationBar';
 import './App.scss';
 
 
@@ -23,6 +24,7 @@ const App = () => {
 
   return (
     <div className="App">
+      <TopNavigationBar />
       <HomeRoute photoData={photoData} topicData={topicData}  openModal={openModal} isFavorited={isFavorited} toggleFavourite={toggleFavourite} />
       {isModalOpen && (
         <PhotoDetailsModal
