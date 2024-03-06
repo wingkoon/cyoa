@@ -16,11 +16,38 @@ const sampleDataForPhotoListItem = {
 };
 
 // Note: Rendering a single component to build components in isolation
-const App = () => (
+const App = () => {
+  const photos = [...Array(3)];
+  const photoListItems = photos.map((photo, index) => 
+    <PhotoListItem key={index} photo={sampleDataForPhotoListItem} imageSource={sampleDataForPhotoListItem.imageSource}/>
+  );
+  const {
+    isModalOpen,
+    selectedPhoto,
+    isFavorited,
+    toggleFavourite,
+    openModal,
+    closeModal,
+    photoData,
+    topicData,
+  } = useApplicationData();
+
+  return (
     <div className="App">
-      <PhotoListItem/>
+      <HomeRoute photoData={photoData} topicData={topicData}  openModal={openModal} isFavorited={isFavorited} toggleFavourite={toggleFavourite} />
+      {isModalOpen && (
+        <PhotoDetailsModal
+          photo={selectedPhoto}
+          toggleFavourite={toggleFavourite}
+          onClose={() => {
+            closeModal();
+          }}
+          similarPhotos={selectedPhoto.similar_photos} 
+        />
+      )}
     </div>
-  )
+  );
+};
 
 
 export default App;
