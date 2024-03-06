@@ -43,5 +43,3 @@ const PhotoListItem = ({ toggleFavourite, isFavorited, imageSource, profile, use
 };
 
 
-export default PhotoListItem;
-
