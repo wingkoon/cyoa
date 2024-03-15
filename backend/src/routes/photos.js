@@ -1,6 +1,6 @@
 const router = require("express").Router();
 
-module.exports = db => {
+module.exports = (db) => {
   router.get("/photos", (request, response) => {
     const protocol = request.protocol;
     const host = request.hostname;

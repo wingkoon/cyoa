@@ -1,23 +1,21 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import '../styles/HomeRoute.scss';
-import TopNavigation from 'components/TopNavigationBar';
+import TopNavigationBar from "components/TopNavigationBar";
 import PhotoList from 'components/PhotoList';
 import useApplicationData from '../hooks/useApplicationData';
 
 const HomeRoute = (props) => {
-  const { photoData, topicData, fetchPhotosByTopic, toggleFavourite, isFavorited } = useApplicationData();
-
   return (
     <div className="home-route">
-      <TopNavigation isFavorited={isFavorited} onTopicClick={fetchPhotosByTopic} />
+      <TopNavigationBar topics={props.topics} favorites={props.favorites} getPhotosByTopicId={props.getPhotosByTopicId} />
       <PhotoList
-        photos={photoData}
-        topics={topicData}
+        photos={props.photos}
+        favorites={props.favorites}
+        toggleFavorite={props.toggleFavorite}
         openModal={props.openModal}
-        isFavorited={isFavorited}
-        toggleFavourite={toggleFavourite} />
-
+        displaySinglePhotoDetails={props.displaySinglePhotoDetails}
+      />
     </div>
   );
 };

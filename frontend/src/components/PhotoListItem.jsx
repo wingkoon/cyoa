@@ -1,5 +1,4 @@
 import React from "react";
-
 import "../styles/PhotoListItem.scss";
 import PhotoFavButton from './PhotoFavButton';
 
@@ -14,32 +13,34 @@ const sampleDataForPhotoListItem = {
   profile: `${process.env.PUBLIC_URL}/profile-1.jpg`,
 };
 
-const PhotoListItem = ({ toggleFavourite, isFavorited, imageSource, profile, username, location, openModal }) => {
+const PhotoListItem = (props) => {
   return (
-    <li className="photo-list__item">
+    <div className="photo-list__item">
       <PhotoFavButton
-        toggleFavourite={toggleFavourite}
-        isFavorited={isFavorited}
+        toggleFavorite={props.toggleFavorite}
+        favorites={props.favorites}
+        photoId={props.photoId}
       />
       <img
         className="photo-list__image"
-        src={imageSource}
-        alt="User's photo"
-         onClick={openModal}
+        src={props.photo.urls.full}
+        onClick={() => props.openModal(props.photo)}
       />
-      <section className="photo-list__user-details">
+      <div className="photo-list__user-details">
         <img
           className="photo-list__user-profile"
-          src={profile}
-          alt="User's profile"
+          src={props.photo.user.profile}
         />
-        <div className="photo-list__user-info">{username}
-          <div className="photo-list__user-location">{location.city}, 
-          {location.country}</div>
+        <div className="photo-list__user-info">
+          {props.photo.user.name}
+          <div className="photo-list__user-location">
+            {props.photo.location.city}
+            {props.photo.location.country}
+          </div>
         </div>
-      </section>
-    </li>
+      </div>
+    </div>
   );
 };
 
-
+export default PhotoListItem;

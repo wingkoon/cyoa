@@ -1,8 +1,7 @@
 import React from 'react';
-
-//import PhotoListItem from './components/PhotoListItem';
-import PhotoList from './components/PhotoList';
-import TopNavigationBar from './components/TopNavigationBar';
+import HomeRoute from "./routes/HomeRoute";
+import PhotoDetailsModal from "./routes/PhotoDetailsModal";
+import useApplicationData from "hooks/useApplicationData";
 import './App.scss';
 
 function Application(props) {
@@ -34,48 +33,35 @@ function useControlledInput(initial) {
 
 // Note: Rendering a single component to build components in isolation
 const App = () => {
-  const photoListItems = photos.map((photo, index) => 
-    <PhotoListItem key={index} photo={sampleDataForPhotoListItem} imageSource={sampleDataForPhotoListItem.imageSource}/>
-  );
   const {
-    isModalOpen,
-    selectedPhoto,
-    isFavorited,
-    toggleFavourite,
-    openModal,
-    closeModal,
-    photoData,
-    topicData,
-  } = useApplicationData();
-  /*const {
     state,
     onPhotoSelect,
     updateToFavPhotoIds,
-    onLoadTopic,
     onClosePhotoDetailsModal,
-  }*/
+    getPhotosByTopicId,
+  } = useApplicationData();
 
   return (
-    <div className="App">
-      <TopNavigationBar />
-      <PhotoFavButton
-  toggleFavourite={toggleFavourite}
-  photoId={photo.id}
-/>
-      <HomeRoute photoData={photoData} topicData={topicData}  openModal={openModal} isFavorited={isFavorited} toggleFavourite={toggleFavourite} />
-      {isModalOpen && (
+    <>
+      <HomeRoute
+        openModal={onPhotoSelect}
+        favorites={state.favoritesPhotos}
+        toggleFavorite={updateToFavPhotoIds}
+        topics={state.topics}
+        photos={state.photos}
+        getPhotosByTopicId={getPhotosByTopicId}
+      />
+      {state.isModalOpen && (
         <PhotoDetailsModal
-          photo={selectedPhoto}
-          toggleFavourite={toggleFavourite}
-          onClose={() => {
-            closeModal();
-          }}
-          similarPhotos={selectedPhoto.similar_photos} 
+          closeModal={onClosePhotoDetailsModal}
+          selectedPhoto={state.selectedPhoto}
+          favorites={state.favoritesPhotos}
+          toggleFavorite={updateToFavPhotoIds}
+          photos={state.photos}
         />
       )}
-    </div>
+    </>
   );
 };
-
 
 export default App;
